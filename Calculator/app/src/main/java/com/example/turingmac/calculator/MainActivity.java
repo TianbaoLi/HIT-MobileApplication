@@ -8,13 +8,45 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
+import bsh.EvalError;
+import bsh.Interpreter;
+
 public class MainActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    private String getRs(String exp){
+        Interpreter bsh = new Interpreter();
+        Number result = null;
+        try {
+            exp = filterExp(exp);
+            result = (Number)bsh.eval(exp);
+        } catch (EvalError e) {
+            e.printStackTrace();
+            return "Error";
+        }
+        return result.doubleValue()+"";
+    }
 
+    private String filterExp(String exp) {
+        String num[] = exp.split("");
+        String temp = null;
+        int begin=0,end=0;
+        for (int i = 1; i < num.length; i++) {
+            temp = num[i];
+            if(temp.matches("[+-/()*]")){
+                if(temp.equals(".")) continue;
+                end = i - 1;
+                temp = exp.substring(begin, end);
+                if(temp.trim().length() > 0 && temp.indexOf(".")<0)
+                    num[i-1] = num[i-1]+".0";
+                begin = end + 1;
+            }
+        }
+        return Arrays.toString(num).replaceAll("[\\[\\], ]", "");
+    }
+
+    @Override
         Button buttonEqual = (Button) findViewById(R.id.buttonEqual);
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -23,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView textViewFormula, textViewResult;
                 textViewFormula = (TextView) findViewById(R.id.textViewFormula);
                 textViewResult = (TextView) findViewById(R.id.textViewResult);
-                textViewResult.setText(textViewFormula.getText().toString());
+                String s = getRs(textViewFormula.getText().toString());
+                textViewResult.setText(s);
             }
         });
         Button button1 = (Button) findViewById(R.id.button1);
