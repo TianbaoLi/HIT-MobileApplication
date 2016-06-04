@@ -1,62 +1,29 @@
 package com.example.turingmac.calculator;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Arrays;
-
-import bsh.EvalError;
-import bsh.Interpreter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String getRs(String exp){
-        Interpreter bsh = new Interpreter();
-        Number result = null;
-        try {
-            exp = filterExp(exp);
-            result = (Number)bsh.eval(exp);
-        } catch (EvalError e) {
-            e.printStackTrace();
-            return "Error";
-        }
-        return result.doubleValue()+"";
-    }
-
-    private String filterExp(String exp) {
-        String num[] = exp.split("");
-        String temp = null;
-        int begin=0,end=0;
-        for (int i = 1; i < num.length; i++) {
-            temp = num[i];
-            if(temp.matches("[+-/()*]")){
-                if(temp.equals(".")) continue;
-                end = i - 1;
-                temp = exp.substring(begin, end);
-                if(temp.trim().length() > 0 && temp.indexOf(".")<0)
-                    num[i-1] = num[i-1]+".0";
-                begin = end + 1;
-            }
-        }
-        return Arrays.toString(num).replaceAll("[\\[\\], ]", "");
-    }
-
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         Button buttonEqual = (Button) findViewById(R.id.buttonEqual);
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 TextView textViewFormula, textViewResult;
+                final RealCalc realcalc = new RealCalc();
                 textViewFormula = (TextView) findViewById(R.id.textViewFormula);
                 textViewResult = (TextView) findViewById(R.id.textViewResult);
-                String s = getRs(textViewFormula.getText().toString());
-                textViewResult.setText(s);
+
+                textViewResult.setText(realcalc.calc(textViewFormula.getText().toString()));
             }
         });
         Button button1 = (Button) findViewById(R.id.button1);
@@ -237,9 +204,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                TextView textViewFormula;
+                TextView textViewFormula, textViewResult;
                 textViewFormula = (TextView) findViewById(R.id.textViewFormula);
+                textViewResult = (TextView) findViewById(R.id.textViewResult);
                 textViewFormula.setText("");
+                textViewResult.setText("");
             }
         });
         Button button_ = (Button) findViewById(R.id.button_);
