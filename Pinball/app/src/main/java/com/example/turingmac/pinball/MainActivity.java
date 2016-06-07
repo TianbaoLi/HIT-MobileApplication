@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,49 +27,24 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int width;
-    private int height;
-    private final int ballSize = 12;
-    private int ySpeed = 10;
-    Random rand = new Random();
-    private double xyRate = rand.nextDouble() - 0.5;
-    private int xSpeed = (int) (ySpeed * xyRate * 2);
-    private int x = width / 2;
-    private int y = height / 2;
-    //private ImageView trans_image;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*WindowManager windowManager = getWindowManager();
-        Display display = windowManager.getDefaultDisplay();
-
-        width = display.getWidth();
-        height = display.getHeight();
-*/
-        //trans_image = (ImageView) findViewById(R.id.imageView);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.translate_tween);
-        animation.setRepeatCount(Animation.INFINITE);
-        Button button = (Button)findViewById(R.id.button);
-        button.startAnimation(animation);
-/*
-
-    public class GameView extends View {
-        public GameView(Context context)
+        ImageView image = (ImageView) findViewById(R.id.imageView);
+        Animation animationForward = AnimationUtils.loadAnimation(this, R.anim.forward);
+        Animation animationReverse = AnimationUtils.loadAnimation(this, R.anim.reverse);
+        int duration = 2000;
+        int step = 100;
+        while(duration > 0)
         {
-            super(context);
-            setFocusable(true);
+            animationForward.setDuration(duration);
+            image.startAnimation(animationForward);
+            animationReverse.setDuration(duration);
+            image.startAnimation(animationReverse);
+            duration -= step;
         }
-        public void onDraw(Canvas canvas)
-        {
-            Paint paint = new Paint();
-            paint.setStyle(Paint.Style.FILL);
-            paint.setColor(Color.RED);
-            canvas.drawCircle(x, y, ballSize, paint);
-        }
- */
     }
 
 }
