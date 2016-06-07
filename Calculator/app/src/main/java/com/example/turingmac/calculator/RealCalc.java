@@ -20,7 +20,7 @@ public class RealCalc
         exp.clear();
     }
 
-    public void tranfser(String expression)
+    public void transfer(String expression)
     {
         char[] arr = expression.toCharArray();
 
@@ -159,7 +159,7 @@ public class RealCalc
     public String calc(String expression)
     {
         double result = 0;
-        tranfser(expression);
+        transfer(expression);
 
         try{
             result = compute();
