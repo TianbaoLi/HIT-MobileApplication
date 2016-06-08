@@ -1,50 +1,70 @@
 package com.example.turingmac.pinball;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.view.View.OnClickListener;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.OvershootInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.TextView;
+import android.widget.ImageView;
 
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+public class MainActivity extends AppCompatActivity{
 
-public class MainActivity extends AppCompatActivity {
+    private int duration = 2000;
+    private final int step = 100;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView image = (ImageView) findViewById(R.id.imageView);
-        Animation animationForward = AnimationUtils.loadAnimation(this, R.anim.forward);
-        Animation animationReverse = AnimationUtils.loadAnimation(this, R.anim.reverse);
-        int duration = 2000;
-        int step = 100;
-        while(duration > 0)
+        image = (ImageView) findViewById(R.id.imageView);
+        image.setOnClickListener(new OnClickListener()
         {
-            animationForward.setDuration(duration);
-            image.startAnimation(animationForward);
-            animationReverse.setDuration(duration);
-            image.startAnimation(animationReverse);
-            duration -= step;
-        }
+            public void onClick(View v)
+            {
+                if(duration <= 0)
+                    duration = 2000;
+                TranslateAnimation animForward = new TranslateAnimation(
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.5f);
+                animForward.setDuration(duration);
+                animForward.setInterpolator(new AccelerateInterpolator());
+                animForward.setAnimationListener(new myAnimationListener());
+                image.startAnimation(animForward);
+            }
+        });
     }
 
+    private class myAnimationListener implements Animation.AnimationListener
+    {
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            // TODO Auto-generated method stub
+            TranslateAnimation animReverse = new TranslateAnimation(
+                    Animation.RELATIVE_TO_PARENT, 0.0f,
+                    Animation.RELATIVE_TO_PARENT, 0.0f,
+                    Animation.RELATIVE_TO_PARENT, 0.5f,
+                    Animation.RELATIVE_TO_PARENT, 0.0f);
+            animReverse.setDuration(duration);
+            animReverse.setInterpolator(new DecelerateInterpolator());
+            image.startAnimation(animReverse);
+            duration -= step;
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+            // TODO Auto-generated method stub
+        }
+    }
 }

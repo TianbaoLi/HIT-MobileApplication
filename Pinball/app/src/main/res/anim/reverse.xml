@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<translate xmlns:android="http://schemas.android.com/apk/res/android">
-        android:interpolator="@android:anim/accelerate_interpolator"
-        android:fromXDelta="540"
-        android:toXDelta="540"
-        android:fromYDelta="1776"
-        android:toYDelta="888"
-</translate>
