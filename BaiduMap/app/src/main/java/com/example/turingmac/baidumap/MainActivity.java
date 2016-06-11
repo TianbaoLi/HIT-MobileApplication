@@ -1,9 +1,12 @@
 package com.example.turingmac.baidumap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -25,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     BaiduMap baiduMap = null;
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
+    Button buttonLongLati = null;
+    Button buttonDescription = null;
+    Button buttonCurrent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +43,41 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         textureMapView = (TextureMapView) findViewById(R.id.textureMapView);
+        buttonLongLati = (Button) findViewById(R.id.buttonLongLati);
+        buttonDescription = (Button) findViewById(R.id.buttonDescription);
+        buttonCurrent = (Button) findViewById(R.id.buttonCurrent);
 
-        baiduMap = textureMapView.getMap();
-        baiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-        mLocationClient.start();
-        mLocationClient.requestLocation();
+        buttonLongLati.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MainActivity.this, InputLangLatiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MainActivity.this, InputDescriptionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonCurrent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                mLocationClient.start();
+                mLocationClient.requestLocation();
+            }
+        });
         //Toast.makeText(MainActivity.this, "" + myListener.,Toast.LENGTH_SHORT).show();
     }
     @Override
     protected void onDestroy() {
+        mLocationClient.stop();
         super.onDestroy();
         textureMapView.onDestroy();
     }
@@ -64,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span=1000;
+        int span=0;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
