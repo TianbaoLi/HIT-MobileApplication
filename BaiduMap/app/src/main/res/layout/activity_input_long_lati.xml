@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextInputLang" />
+        android:id="@+id/editTextInputLong" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="定位"
-        android:id="@+id/buttonLocateLangLati"
+        android:id="@+id/buttonLocateLongLati"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp" />
 </LinearLayout>

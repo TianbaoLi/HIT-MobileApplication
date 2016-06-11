@@ -55,7 +55,7 @@
             android:process=":remote" />
 
         <activity
-            android:name=".InputLangLatiActivity"
+            android:name=".InputLongLatiActivity"
             android:label="@string/title_activity_input_lang_lati"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".InputDescriptionActivity"></activity>
