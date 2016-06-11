@@ -13,5 +13,39 @@
         android:id="@+id/textureMapView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="53dp" />
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="经纬度"
+            android:id="@+id/buttonLongLati"
+            android:layout_weight="0.33"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="描述"
+            android:id="@+id/buttonDescription"
+            android:layout_weight="0.33"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前处"
+            android:id="@+id/buttonCurrent"
+            android:layout_weight="0.33"/>
+    </LinearLayout>
 </RelativeLayout>
