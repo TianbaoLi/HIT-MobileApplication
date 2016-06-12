@@ -50,27 +50,7 @@ public class InputLongLatiActivity extends AppCompatActivity {
                 Intent intent = new Intent(InputLongLatiActivity.this, MainActivity.class);
                 intent.putExtra("POS", Double.toString(latitude) + " " + Double.toString(longitude));
                 startActivity(intent);
-                /*
-                GeoCoder coder = GeoCoder.newInstance();
-                ReverseGeoCodeOption option = new ReverseGeoCodeOption();
-                option.location(new LatLng(latitude,longitude));
-                coder.reverseGeoCode(option);
-                coder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-                    @Override
-                    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-                        Log.i("===", result.getAddress() + result.getBusinessCircle() + result.getAddressDetail() + result.getLocation() + result.getPoiList());
-                        if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR)
-                            Toast.makeText(InputLongLatiActivity.this, "抱歉，未能找到结果", Toast.LENGTH_SHORT).show();
-                        else {
-                            Toast.makeText(InputLongLatiActivity.this, "位置：" + result.getAddress(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    // 地理编码查询结果回调函数
-                    @Override
-                    public void onGetGeoCodeResult(GeoCodeResult result) {
 
-                    }
-                });*/
             }
 
         });

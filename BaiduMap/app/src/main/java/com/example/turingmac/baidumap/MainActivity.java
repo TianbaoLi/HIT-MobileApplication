@@ -2,6 +2,11 @@ package com.example.turingmac.baidumap;
 
 import android.content.Context;
 import android.content.Intent;
+
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +29,8 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 
 import java.io.IOException;
 
@@ -40,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     double longitude;
     double latitude;
     BitmapDescriptor bitmap = null;
+    OnGetGeoCoderResultListener onGetGeoCoderResultListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,22 +65,75 @@ public class MainActivity extends AppCompatActivity {
         baiduMap = textureMapView.getMap();
         mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
+        onGetGeoCoderResultListener = new OnGetGeoCoderResultListener() {
+            @Override
+            public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+                Log.i("===", "!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                Log.i("===", "" + geoCodeResult.getLocation().latitudeE6 + geoCodeResult.getLocation().longitudeE6);
+                if(geoCodeResult == null||geoCodeResult.error!= SearchResult.ERRORNO.NO_ERROR)
+                {
+                    Toast.makeText(MainActivity.this, "抱歉，未能找到结果",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    LatLng lat = geoCodeResult.getLocation();
+                    MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(lat);
+                    baiduMap.animateMapStatus(msu);
+                    BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
+                    //构建MarkerOption，用于在地图上添加Marker
+                    OverlayOptions option = new MarkerOptions()
+                            .position(lat)
+                            .icon(bitmap);
+                    //在地图上添加Marker，并显示
+                    baiduMap.addOverlay(option);
+                }
+
+            }
+
+            @Override
+            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+
+            }
+        };
         initLocation();
 
         try
         {
             Intent intent = getIntent();
             Bundle data = intent.getExtras();
-            Log.i("===", data.getString("POS"));
-            String[] aa = data.getString("POS").split(" ");
-            latitude = Double.parseDouble(aa[0]);
-            longitude = Double.parseDouble(aa[1]);
+            try
+            {
+                Log.i("===", data.getString("POS"));
+                String[] aa = data.getString("POS").split(" ");
+                latitude = Double.parseDouble(aa[0]);
+                longitude = Double.parseDouble(aa[1]);
 
-            LatLng point = new LatLng(latitude, longitude);
-            MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(point);
-            baiduMap.animateMapStatus(msu);
-            OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
-            baiduMap.addOverlay(option);
+                LatLng point = new LatLng(latitude, longitude);
+                MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(point);
+                baiduMap.animateMapStatus(msu);
+                OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+                baiduMap.addOverlay(option);
+            }
+            catch(Exception e)
+            {
+
+            }
+
+            try
+            {
+                String s = data.getString("DES");
+                Log.i("===", s);
+
+                GeoCoder geoCoder = GeoCoder.newInstance();
+                geoCoder.geocode(new GeoCodeOption().address(s));
+                geoCoder.setOnGetGeoCodeResultListener(onGetGeoCoderResultListener);
+
+            }
+            catch(Exception e)
+            {
+
+            }
+
         }
         catch(Exception e)
         {
