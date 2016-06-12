@@ -1,5 +1,6 @@
 package com.example.turingmac.baidumap;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -43,9 +44,13 @@ public class InputLongLatiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String longitudeStr = editTextInputLong.getText().toString();
                 String latitudeStr = editTextInputLati.getText().toString();
-                double longitude = Double.parseDouble(longitudeStr);
-                double latitude = Double.parseDouble(latitudeStr);
+                final double longitude = Double.parseDouble(longitudeStr);
+                final double latitude = Double.parseDouble(latitudeStr);
 
+                Intent intent = new Intent(InputLongLatiActivity.this, MainActivity.class);
+                intent.putExtra("POS", Double.toString(latitude) + " " + Double.toString(longitude));
+                startActivity(intent);
+                /*
                 GeoCoder coder = GeoCoder.newInstance();
                 ReverseGeoCodeOption option = new ReverseGeoCodeOption();
                 option.location(new LatLng(latitude,longitude));
@@ -56,15 +61,16 @@ public class InputLongLatiActivity extends AppCompatActivity {
                         Log.i("===", result.getAddress() + result.getBusinessCircle() + result.getAddressDetail() + result.getLocation() + result.getPoiList());
                         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR)
                             Toast.makeText(InputLongLatiActivity.this, "抱歉，未能找到结果", Toast.LENGTH_SHORT).show();
-                        else
+                        else {
                             Toast.makeText(InputLongLatiActivity.this, "位置：" + result.getAddress(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                     // 地理编码查询结果回调函数
                     @Override
                     public void onGetGeoCodeResult(GeoCodeResult result) {
 
                     }
-                });
+                });*/
             }
 
         });

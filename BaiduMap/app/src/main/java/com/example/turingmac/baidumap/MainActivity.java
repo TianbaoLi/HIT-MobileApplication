@@ -4,15 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.model.LatLng;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,14 +36,17 @@ public class MainActivity extends AppCompatActivity {
     Button buttonLongLati = null;
     Button buttonDescription = null;
     Button buttonCurrent = null;
+    MyLocationConfiguration.LocationMode mCurrentMode = null;
+    double longitude;
+    double latitude;
+    BitmapDescriptor bitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = getApplicationContext();
-        mLocationClient = new LocationClient(context);     //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);    //注册监听函数
-        initLocation();
+        mLocationClient = new LocationClient(context);
+        mLocationClient.registerLocationListener(myListener);
         SDKInitializer.initialize(context);
 
         setContentView(R.layout.activity_main);
@@ -38,6 +54,30 @@ public class MainActivity extends AppCompatActivity {
         buttonLongLati = (Button) findViewById(R.id.buttonLongLati);
         buttonDescription = (Button) findViewById(R.id.buttonDescription);
         buttonCurrent = (Button) findViewById(R.id.buttonCurrent);
+        baiduMap = textureMapView.getMap();
+        mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
+        bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
+        initLocation();
+
+        try
+        {
+            Intent intent = getIntent();
+            Bundle data = intent.getExtras();
+            Log.i("===", data.getString("POS"));
+            String[] aa = data.getString("POS").split(" ");
+            latitude = Double.parseDouble(aa[0]);
+            longitude = Double.parseDouble(aa[1]);
+
+            LatLng point = new LatLng(latitude, longitude);
+            MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(point);
+            baiduMap.animateMapStatus(msu);
+            OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+            baiduMap.addOverlay(option);
+        }
+        catch(Exception e)
+        {
+
+        }
 
         buttonLongLati.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //Toast.makeText(MainActivity.this, "" + myListener.,Toast.LENGTH_SHORT).show();
     }
+
     @Override
     protected void onDestroy() {
         mLocationClient.stop();
