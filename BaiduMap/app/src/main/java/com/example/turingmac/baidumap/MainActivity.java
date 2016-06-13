@@ -68,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
         onGetGeoCoderResultListener = new OnGetGeoCoderResultListener() {
             @Override
             public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-                Log.i("===", "!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                Log.i("===", "" + geoCodeResult.getLocation().latitudeE6 + geoCodeResult.getLocation().longitudeE6);
+                Log.i("!!!!!!", "" + geoCodeResult.toString());
                 if(geoCodeResult == null||geoCodeResult.error!= SearchResult.ERRORNO.NO_ERROR)
                 {
                     Toast.makeText(MainActivity.this, "抱歉，未能找到结果",Toast.LENGTH_LONG).show();
@@ -118,28 +117,23 @@ public class MainActivity extends AppCompatActivity {
             {
 
             }
-
             try
             {
                 String s = data.getString("DES");
-                Log.i("===", s);
-
+                Log.i("===========DES:", s);
                 GeoCoder geoCoder = GeoCoder.newInstance();
-                geoCoder.geocode(new GeoCodeOption().address(s));
                 geoCoder.setOnGetGeoCodeResultListener(onGetGeoCoderResultListener);
-
+                geoCoder.geocode(new GeoCodeOption().address(s));
             }
             catch(Exception e)
             {
 
             }
-
         }
         catch(Exception e)
         {
 
         }
-
         buttonLongLati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

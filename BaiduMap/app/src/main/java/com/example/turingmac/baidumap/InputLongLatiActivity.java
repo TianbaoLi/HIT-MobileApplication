@@ -44,13 +44,19 @@ public class InputLongLatiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String longitudeStr = editTextInputLong.getText().toString();
                 String latitudeStr = editTextInputLati.getText().toString();
-                final double longitude = Double.parseDouble(longitudeStr);
-                final double latitude = Double.parseDouble(latitudeStr);
+                try
+                {
+                    final double longitude = Double.parseDouble(longitudeStr);
+                    final double latitude = Double.parseDouble(latitudeStr);
 
-                Intent intent = new Intent(InputLongLatiActivity.this, MainActivity.class);
-                intent.putExtra("POS", Double.toString(latitude) + " " + Double.toString(longitude));
-                startActivity(intent);
+                    Intent intent = new Intent(InputLongLatiActivity.this, MainActivity.class);
+                    intent.putExtra("POS", Double.toString(latitude) + " " + Double.toString(longitude));
+                    startActivity(intent);
+                }
+                catch(Exception e)
+                {
 
+                }
             }
 
         });
