@@ -16,26 +16,20 @@ import java.net.SocketTimeoutException;
 /**
  * Created by turingmac on 2016/6/5.
  */
-public class ServiceThreada implements Runnable{
+public class ServerThread implements Runnable{
 
-    //定义当前线程处理的Socket
     Socket socket = null;
-    //该线程所处理的Socket所对应的输入流
     BufferedReader br = null;
     OutputStream os = null;
-
-    Handler handler;
-    Handler revHandler;
-
-    String ip;
+    Handler sendHandler;
+    Handler receiveHandler;
     int port;
 
-    public ServiceThreada(Handler handler,int port)
+    public ServerThread(Handler handler, int port)
     {
-        this.handler = handler;
+        this.sendHandler = handler;
         this.port = port;
     }
-
 
     @Override
     public void run() {
@@ -53,21 +47,19 @@ public class ServiceThreada implements Runnable{
                         {
                             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             os = socket.getOutputStream();
-
                             new Thread()
                             {
                                 @Override
                                 public void run() {
-                                    String content = null;
-                                    //不断读取Socket输入流的内容
+                                    String content;
                                     try
                                     {
                                         while((content = br.readLine())!= null)
                                         {
                                             Message msg = new Message();
                                             msg.what = 0x123;
-                                            msg.obj = "客户端："+content;
-                                            handler.sendMessage(msg);
+                                            msg.obj = "CLIENT:"+content;
+                                            sendHandler.sendMessage(msg);
                                         }
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -76,7 +68,7 @@ public class ServiceThreada implements Runnable{
                             }.start();
 
                             Looper.prepare();
-                            revHandler = new Handler(){
+                            receiveHandler = new Handler(){
                                 @Override
                                 public void handleMessage(Message msg) {
                                     if(msg.what == 0x345)

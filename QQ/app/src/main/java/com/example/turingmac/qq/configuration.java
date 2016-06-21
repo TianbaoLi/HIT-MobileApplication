@@ -20,22 +20,16 @@ public class configuration extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.config);
 
-        Button btnOk = (Button)findViewById(R.id.ok);
-        btnOk.setOnClickListener(new View.OnClickListener() {
+        Button buttonSubmitConfig = (Button)findViewById(R.id.buttonSubmitConfig);
+        buttonSubmitConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText ip = (EditText)findViewById(R.id.ip);
-                EditText port = (EditText)findViewById(R.id.port);
-
+                EditText editTextIP = (EditText)findViewById(R.id.editTextIP);
+                EditText editTextPort = (EditText)findViewById(R.id.editTextPort);
 
                 Bundle data = new Bundle();
-
-
-                    data.putString("ip",ip.getText().toString());
-                    data.putString("port",port.getText().toString());
-
-
-
+                data.putString("ip",editTextIP.getText().toString());
+                data.putString("port",editTextPort.getText().toString());
 
                 Intent intent = new Intent(configuration.this,MainActivity.class);
                 intent.putExtras(data);

@@ -10,24 +10,24 @@ import android.widget.EditText;
 /**
  * Created by turingmac on 2016/6/9.
  */
-public class Server extends Activity{
-    private  Button btnOK;
+public class ServerPortInput extends Activity{
+    private  Button buttonInputServerPort;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sever);
+        setContentView(R.layout.sever_port_input);
 
-        btnOK =(Button)this.findViewById(R.id.confirm);
+        buttonInputServerPort =(Button)this.findViewById(R.id.buttonInputServerPort);
 
-        btnOK.setOnClickListener(new View.OnClickListener() {
+        buttonInputServerPort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText serverport = (EditText)findViewById(R.id.serverport);
+                EditText editTextServerPort = (EditText)findViewById(R.id.editTextServerPort);
 
                 Bundle data = new Bundle();
-                data.putString("serverport",serverport.getText().toString());
+                data.putString("serverPort",editTextServerPort.getText().toString());
 
-                Intent intent = new Intent(Server.this,MainActivity.class);
+                Intent intent = new Intent(ServerPortInput.this,MainActivity.class);
                 intent.putExtras(data);
                 startActivity(intent);
             }
