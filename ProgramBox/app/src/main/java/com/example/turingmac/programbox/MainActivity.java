@@ -1,7 +1,10 @@
 package com.example.turingmac.programbox;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
@@ -47,6 +50,33 @@ public class MainActivity extends AppCompatActivity {
 
         gridView = (GridView)findViewById(R.id.gridView);
         InitImageName();
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position)
+                {
+                    case 0:
+                        Intent intent0 = new Intent(MainActivity.this, PinballActivity.class);
+                        startActivity(intent0);
+                        break;
+                    /*case 1:
+                        Intent intent1 = new Intent(MainActivity.this,playball.class);
+                        startActivity(intent1);
+                        break;
+                    case 2:
+                        Intent intent2 = new Intent(MainActivity.this,chat.class);
+                        startActivity(intent2);
+                        break;
+                    case 3:
+                        Intent intent3 = new Intent(MainActivity.this, Maps.class);
+                        startActivity(intent3);
+                        break;*/
+                }
+            }
+        });
 
     }
 }
