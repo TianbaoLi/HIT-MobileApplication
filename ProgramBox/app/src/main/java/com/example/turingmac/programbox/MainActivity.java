@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent1);
                         break;
                     /*case 2:
-                        Intent intent2 = new Intent(MainActivity.this,chat.class);
+                        Intent intent2 = new Intent(MainActivity.this,QQActivity.class);
                         startActivity(intent2);
-                        break;
-                    case 3:
-                        Intent intent3 = new Intent(MainActivity.this, Maps.class);
-                        startActivity(intent3);
                         break;*/
+                    case 3:
+                        Intent intent3 = new Intent(MainActivity.this, QQActivity.class);
+                        startActivity(intent3);
+                        break;
                 }
             }
         });

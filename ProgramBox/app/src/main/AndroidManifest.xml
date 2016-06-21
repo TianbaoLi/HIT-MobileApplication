@@ -54,7 +54,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".PinballActivity" />
-        <activity android:name=".CalculatorActivity"></activity>
+        <activity android:name=".CalculatorActivity" />
+        <activity android:name=".QQActivity"></activity>
+        <activity android:name=".configuration" />
+        <activity android:name=".ServerPortInput" />
     </application>
 
 </manifest>
