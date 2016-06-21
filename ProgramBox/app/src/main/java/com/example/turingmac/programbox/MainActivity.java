@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent0 = new Intent(MainActivity.this, PinballActivity.class);
                         startActivity(intent0);
                         break;
-                    /*case 1:
-                        Intent intent1 = new Intent(MainActivity.this,playball.class);
+                    case 1:
+                        Intent intent1 = new Intent(MainActivity.this,CalculatorActivity.class);
                         startActivity(intent1);
                         break;
-                    case 2:
+                    /*case 2:
                         Intent intent2 = new Intent(MainActivity.this,chat.class);
                         startActivity(intent2);
                         break;
