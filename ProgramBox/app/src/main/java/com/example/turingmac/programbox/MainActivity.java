@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent1 = new Intent(MainActivity.this,CalculatorActivity.class);
                         startActivity(intent1);
                         break;
-                    /*case 2:
-                        Intent intent2 = new Intent(MainActivity.this,QQActivity.class);
+                    case 2:
+                        Intent intent2 = new Intent(MainActivity.this,BaiduMapActivity.class);
                         startActivity(intent2);
-                        break;*/
+                        break;
                     case 3:
                         Intent intent3 = new Intent(MainActivity.this, QQActivity.class);
                         startActivity(intent3);

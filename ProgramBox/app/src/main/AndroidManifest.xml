@@ -31,21 +31,22 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
 
-    <meta-data
-        android:name="com.baidu.lbsapi.API_KEY"
-        android:value="16Ej3kEvYBzSRS0NqssMwj1DLTH3xT58" />
-
-    <service
-        android:name="com.baidu.location.f"
-        android:enabled="true"
-        android:process=":remote" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="vG1iq5vuxx7LIweRYUzGShg213qIPTXE" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,9 +56,15 @@
         </activity>
         <activity android:name=".PinballActivity" />
         <activity android:name=".CalculatorActivity" />
-        <activity android:name=".QQActivity"></activity>
+        <activity android:name=".QQActivity" />
         <activity android:name=".configuration" />
         <activity android:name=".ServerPortInput" />
+        <activity android:name=".BaiduMapActivity"/>
+        <activity
+            android:name=".InputLongLatiActivity"
+            android:label="@string/title_activity_input_lang_lati"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".InputDescriptionActivity"></activity>
     </application>
 
 </manifest>
