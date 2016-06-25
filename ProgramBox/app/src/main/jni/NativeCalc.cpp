@@ -1,4 +1,5 @@
 #include "NativeCalc.h"
+#include "Calc.h"
 
 JNIEXPORT jdouble JNICALL Java_com_example_turingmac_programbox_NativeCalc_calc(JNIEnv *env, jobject instance, jstring str_)
 {
@@ -6,7 +7,10 @@ JNIEXPORT jdouble JNICALL Java_com_example_turingmac_programbox_NativeCalc_calc(
 
     // TODO
 
-    return 1.0;
+    Calc c;
+    c.Input(str);
+    c.Cac();
+    return c.getAns();
 
     env->ReleaseStringUTFChars(str_, str);
 }

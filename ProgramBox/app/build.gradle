@@ -6,6 +6,7 @@ model {
         buildToolsVersion "23.0.3"
         ndk {
             moduleName "NativeCalc"
+            stl "stlport_shared"
         }
         sources {
             main {
