@@ -9,7 +9,10 @@
 #include <stdio.h>
 #include <string.h>
 
-extern JNIEXPORT jdouble JNICALL Java_com_example_turingmac_programbox_NativeCalc_calc(JNIEnv *env, jobject instance, jstring str_);
+extern "C"
+{
+    JNIEXPORT jdouble JNICALL Java_com_example_turingmac_programbox_NativeCalc_calc(JNIEnv *env, jobject instance, jstring str_);
+}
 
 
 #endif //PROGRAMBOX_NATIVECALC_H
