@@ -24,7 +24,10 @@ public class CalculatorActivity extends AppCompatActivity {
                 textViewResult = (TextView) findViewById(R.id.textViewResult);
 
                 //textViewResult.setText(realcalc.calc(textViewFormula.getText().toString()));
-                textViewResult.setText("" + NativeCalc.calc(textViewFormula.getText().toString() + "="));
+                if(realcalc.calc(textViewFormula.getText().toString())=="ERROR!")
+                    textViewResult.setText("ERROR!");
+                else
+                    textViewResult.setText("" + NativeCalc.calc(textViewFormula.getText().toString() + "="));
             }
         });
         Button button1 = (Button) findViewById(R.id.button1);
