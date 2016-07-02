@@ -1,10 +1,7 @@
 package com.example.sinaRSS;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Iterator;
+import android.os.AsyncTask;
+import android.view.LayoutInflater;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,20 +9,18 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.R.integer;
-import android.app.Activity;
-import android.app.Service;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.view.LayoutInflater;
-import android.widget.Toast;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class NetworkAsyncTask extends AsyncTask<Integer, Integer, News[]> {
 	private MyScrollView myScrollView = null;
 	private MainActivity activity = null;
 	private LayoutInflater inflater = null;
 	private HttpClient hClient = null;
-	private static String url = "http://rss.sina.com.cn/news/marquee/ddt.xml";//RSS源地址
+	private static String url = "http://api.sina.cn/sinago/list.json?channel=news_toutiao";//RSS源地址
 	private int mode;
 	
 	public NetworkAsyncTask(MyScrollView msv,MainActivity act,LayoutInflater li){
@@ -40,29 +35,53 @@ public class NetworkAsyncTask extends AsyncTask<Integer, Integer, News[]> {
 	{
 		switch(index)
 		{
-			case 0://新闻要闻
-				url="http://rss.sina.com.cn/news/marquee/ddt.xml";
+			case 1:
+				url="http://api.sina.cn/sinago/list.json?channel=news_toutiao";
 				break;
-			case 1://国内新闻
-				url="http://rss.sina.com.cn/news/china/focus15.xml";
+			case 2:
+				url="http://api.sina.cn/sinago/list.json?channel=news_auto";
 				break;
-			case 2://国际新闻
-				url="http://rss.sina.com.cn/news/world/focus15.xml";
+			case 3:
+				url="http://api.sina.cn/sinago/list.json?channel=news_ent";
 				break;
-			case 3://体育新闻
-				url="http://rss.sina.com.cn/news/allnews/sports.xml";
+			case 4:
+				url="http://api.sina.cn/sinago/list.json?channel=news_sports";
 				break;
-			case 4://军事新闻
-				url="http://rss.sina.com.cn/jczs/focus.xml";
+			case 5:
+				url="http://api.sina.cn/sinago/list.json?channel=news_finance";
 				break;
-			case 5://娱乐新闻
-				url="http://rss.sina.com.cn/news/allnews/ent.xml";
+			case 6:
+				url="http://api.sina.cn/sinago/list.json?channel=news_tech";
 				break;
-			case 6://教育新闻
-				url="http://rss.sina.com.cn/edu/focus19.xml";
+			case 7:
+				url="http://api.sina.cn/sinago/list.json?channel=news_funny";
 				break;
-			default://新闻要闻
-				url="http://rss.sina.com.cn/news/marquee/ddt.xml";
+			case 8:
+				url="http://api.sina.cn/sinago/list.json?channel=hdpic_toutiao";
+				break;
+			case 9:
+				url="http://api.sina.cn/sinago/list.json?channel=hdpic_funny";
+				break;
+			case 10:
+				url="http://api.sina.cn/sinago/list.json?channel=hdpic_pretty";
+				break;
+			case 11:
+				url="http://api.sina.cn/sinago/list.json?channel=hdpic_story";
+				break;
+			case 12:
+				url="http://api.sina.cn/sinago/list.json?channel=video_video";
+				break;
+			case 13:
+				url="http://api.sina.cn/sinago/list.json?channel=video_highlights";
+				break;
+			case 14:
+				url="http://api.sina.cn/sinago/list.json?channel=video_scene";
+				break;
+			case 15:
+				url="http://api.sina.cn/sinago/list.json?channel=video_funny";
+				break;
+			default:
+				url="http://api.sina.cn/sinago/list.json?channel=news_toutiao";
 				break;
 		}
 	}

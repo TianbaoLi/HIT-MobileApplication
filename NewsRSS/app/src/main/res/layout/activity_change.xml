@@ -89,10 +89,10 @@
                 android:text="竞技新闻" />
 
             <RadioButton
-                android:id="@+id/radioButtonXiaocry"
+                android:id="@+id/radioButtonShipin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="笑cry新闻" />
+                android:text="视频新闻" />
 
             <RadioButton
                 android:id="@+id/radioButtonZhenjing"

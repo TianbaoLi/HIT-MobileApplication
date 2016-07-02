@@ -14,38 +14,63 @@ public class ChangeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change);
 		
-		RadioGroup      m_RadioGroup;  
-        final RadioButton     m_Radio0, m_Radio1, m_Radio2, m_Radio3, m_Radio4, m_Radio5, m_Radio6;
+		RadioGroup m_RadioGroup;
+        final RadioButton b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15;
         
-        m_RadioGroup = (RadioGroup) findViewById(R.id.typegroup);  
-        m_Radio0 = (RadioButton) findViewById(R.id.radioButton0);  
-        m_Radio1 = (RadioButton) findViewById(R.id.radioButton1);  
-        m_Radio2 = (RadioButton) findViewById(R.id.radioButton2);  
-        m_Radio3 = (RadioButton) findViewById(R.id.radioButton3); 
-        m_Radio4 = (RadioButton) findViewById(R.id.radioButton4); 
-        m_Radio5 = (RadioButton) findViewById(R.id.radioButton5); 
-        m_Radio6 = (RadioButton) findViewById(R.id.radioButton6); 
+        m_RadioGroup = (RadioGroup) findViewById(R.id.typegroup);
+
+		b1 = (RadioButton) findViewById(R.id.radioButtonToutiao);
+		b2 = (RadioButton) findViewById(R.id.radioButtonQiche);
+		b3 = (RadioButton) findViewById(R.id.radioButtonYule);
+		b4 = (RadioButton) findViewById(R.id.radioButtonTiyu);
+		b5 = (RadioButton) findViewById(R.id.radioButtonCaijing);
+		b6 = (RadioButton) findViewById(R.id.radioButtonKeji);
+		b7 = (RadioButton) findViewById(R.id.radioButtonGaoxiao);
+		b8 = (RadioButton) findViewById(R.id.radioButtonJingxuan);
+		b9 = (RadioButton) findViewById(R.id.radioButtonQiqu);
+		b10 = (RadioButton) findViewById(R.id.radioButtonMingxing);
+		b11 = (RadioButton) findViewById(R.id.radioButtonJingji);
+		b12 = (RadioButton) findViewById(R.id.radioButtonShipin);
+		b13 = (RadioButton) findViewById(R.id.radioButtonZhenjing);
+		b14 = (RadioButton) findViewById(R.id.radioButtonNuanxin);
+		b15 = (RadioButton) findViewById(R.id.radioButtonBagua);
         
         m_RadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {  
             @Override  
             public void onCheckedChanged(RadioGroup group, int checkedId)  
             {  
                 // TODO Auto-generated method stub  
-            	int index=0;
-            	if(checkedId==m_Radio0.getId())
-            		index=0;
-            	else if(checkedId==m_Radio1.getId())
+            	int index=1;
+            	if(checkedId==b1.getId())
             		index=1;
-            	else if(checkedId==m_Radio2.getId())
+            	else if(checkedId==b2.getId())
             		index=2;
-            	else if(checkedId==m_Radio3.getId())
+            	else if(checkedId==b3.getId())
             		index=3;
-            	else if(checkedId==m_Radio4.getId())
+            	else if(checkedId==b4.getId())
             		index=4;
-            	else if(checkedId==m_Radio5.getId())
+            	else if(checkedId==b5.getId())
             		index=5;
-            	else if(checkedId==m_Radio6.getId())
+            	else if(checkedId==b6.getId())
             		index=6;
+            	else if(checkedId==b7.getId())
+            		index=7;
+				else if(checkedId==b8.getId())
+					index=8;
+				else if(checkedId==b9.getId())
+					index=9;
+				else if(checkedId==b10.getId())
+					index=10;
+				else if(checkedId==b11.getId())
+					index=11;
+				else if(checkedId==b12.getId())
+					index=12;
+				else if(checkedId==b13.getId())
+					index=13;
+				else if(checkedId==b14.getId())
+					index=14;
+				else if(checkedId==b15.getId())
+					index=15;
             	NetworkAsyncTask.setUrl(index);
                 
             	//finish();
