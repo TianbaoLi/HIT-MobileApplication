@@ -8,6 +8,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -101,8 +104,27 @@ public class NetworkAsyncTask extends AsyncTask<Integer, Integer, News[]> {
 			BufferedReader bReader = new BufferedReader(new InputStreamReader(is,"utf-8"));
 			StringBuilder sBuilder = new StringBuilder();
 			
-	        String line = null;
-			while ((line = bReader.readLine()) != null) {//通过HTTP请求读取
+	        String content = "";
+            String line = "";
+
+            while ((line = bReader.readLine()) != null)
+                content += line;
+            //Log.i("content", content);
+            JSONTokener jsonParser = new JSONTokener(content);
+            JSONObject jsonContent = (JSONObject) jsonParser.nextValue();
+            JSONObject data = jsonContent.getJSONObject("data");
+            JSONArray news = data.getJSONArray("list");
+            for(int i=0;i<news.length();i++) {
+                //Log.i("NEWS", news.getJSONObject(i).toString());
+                JSONObject n = news.getJSONObject(i);
+                String titleString = n.getString("long_title");
+                String contentString = n.getString("intro");
+                String urlString = n.getString("link");
+                News current = new News(titleString, contentString, urlString);
+                alResultNews.add(current);
+            }
+
+			/*while ((line = bReader.readLine()) != null) {//通过HTTP请求读取
 				if(line.indexOf("<item>") == -1)
 					continue;
 				String titleString,contentString,urlString,itemString = null;
@@ -118,7 +140,7 @@ public class NetworkAsyncTask extends AsyncTask<Integer, Integer, News[]> {
 				urlString = urlString.substring(urlString.indexOf("url=")+"url=".length());
 				News news = new News(titleString, contentString, urlString);
 				alResultNews.add(news);
-	    }
+	    }*/
 	        is.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
